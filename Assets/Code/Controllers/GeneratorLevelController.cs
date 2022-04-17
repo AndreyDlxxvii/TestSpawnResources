@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
 {
@@ -19,6 +21,8 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
     private NavMeshSurface _navMesh;
     private BtnUIController _btnUIController;
     private Dictionary<Button, Vector3> _spawnedButtons = new Dictionary<Button, Vector3>();
+
+    public event Action<VoxelTile> SpawnResources; 
 
     public GeneratorLevelController(List<VoxelTile> tiles, GameConfig gameConfig, RightUI rightUI,
         BtnUIController btnUIController, Transform canvas, NavMeshSurface navMesh)
@@ -71,6 +75,7 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
             _positionSpawnedTiles.Add(_spawnedTiles[x, y]);
             CreateButton(_spawnedTiles[x, y]);
         }
+        SpawnResources?.Invoke(_spawnedTiles[x, y]);
         GameObject.Instantiate(_gameConfig.MainTower,new Vector3(x, 0, y), Quaternion.identity);
     }
     
@@ -147,6 +152,7 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
         _availableTiles.Clear();
         _spawnedTiles[(int) pos.x, (int) pos.z] = tile;
         _positionSpawnedTiles.Add(tile);
+        SpawnResources?.Invoke(tile);
         CreateButton(tile);
     }
     

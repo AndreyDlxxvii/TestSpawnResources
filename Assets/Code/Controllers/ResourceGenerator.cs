@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ResourceGenerator : IOnController
+public class ResourceGenerator : IDisposable
 {
-    private List<VoxelTile> _spawnedTilesPosition;
     private BaseBuildAndResources[,] _installedBuildings;
     private List<Vector2Int> _possiblePlaceResource = new List<Vector2Int>();
     private List<Vector2Int> _spawnedResources = new List<Vector2Int>();
     private GameConfig _gameConfig;
     private Mineral _mineral;
-    public ResourceGenerator(List<VoxelTile> spawnedTilesPosition, BaseBuildAndResources[,] installedBuildings,
-        LeftUI leftUI, GameConfig gameConfig)
+    private GeneratorLevelController _generatorLevelController;
+    public ResourceGenerator(BaseBuildAndResources[,] installedBuildings,
+        GameConfig gameConfig, GeneratorLevelController generatorLevelController)
     {
-        _spawnedTilesPosition = spawnedTilesPosition;
         _installedBuildings = installedBuildings;
-        leftUI.BuildResources.onClick.AddListener(SpawnResources);
         _gameConfig = gameConfig;
+        _generatorLevelController = generatorLevelController;
+        _generatorLevelController.SpawnResources += SpawnResources;
     }
     
  
-    private void SpawnResources()
+    private void SpawnResources(VoxelTile tile)
     {
-        var i = Random.Range(0, _spawnedTilesPosition.Count); 
-        var tile = _spawnedTilesPosition[i];
         GetPossiblePlace(tile);
     }
 
@@ -85,8 +83,25 @@ public class ResourceGenerator : IOnController
 
     private void PlaceResources(int numTile)
     {
-        int[] q = {1,2,2,3};
-        int numberOfMineralsToSpawn = q[Random.Range(0, q.Length)];
+        int numberOfMineralsToSpawn;
+        // если использовать данный сетап, то редко получается 3, но общее количество ресурсов больше
+        //int[] q = {1,2,2,3};
+        //int numberOfMineralsToSpawn = q[Random.Range(0, q.Length-1)];
+        var t = Random.Range(0, 101);
+        if (t <= 25)
+        {
+            numberOfMineralsToSpawn = 1;
+        }
+        else if (t > 25 && t < 75)
+        {
+            numberOfMineralsToSpawn = 2;
+        }
+        else
+        {
+            numberOfMineralsToSpawn = 3;
+        }
+        
+        Debug.Log(numberOfMineralsToSpawn);
         //int numberOfMineralsToSpawn = 2;
         float weightT1 = _gameConfig.TearOneWeight;
         float weightT2 = _gameConfig.TearTwoWeight * numTile;
@@ -245,5 +260,9 @@ public class ResourceGenerator : IOnController
     //     }
     //     return false;
     // }
-    
+
+    public void Dispose()
+    {
+        _generatorLevelController.SpawnResources -= SpawnResources;
+    }
 }
