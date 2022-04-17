@@ -12,6 +12,7 @@ public class ResourceGenerator : IDisposable
     private Mineral _mineral;
     private GeneratorLevelController _generatorLevelController;
     private int _numOfVariant = 0;
+    private bool _flag;
     public ResourceGenerator(BaseBuildAndResources[,] installedBuildings,
         GameConfig gameConfig, GeneratorLevelController generatorLevelController)
     {
@@ -106,15 +107,25 @@ public class ResourceGenerator : IDisposable
     private void PlaceResources(int numTile)
     {
         int numberOfMineralsToSpawn;
+        int random;
         // если использовать данный сетап, то редко получается 3, но общее количество ресурсов больше
         //int[] q = {1,2,2,3};
         //int numberOfMineralsToSpawn = q[Random.Range(0, q.Length-1)];
-        var t = Random.Range(0, 101);
-        if (t <= 25)
+        if (!_flag)
+        {
+            random = 50;
+            _flag = true;
+        }
+        else
+        {
+            random = Random.Range(0, 101);
+        }
+        
+        if (random <= 25)
         {
             numberOfMineralsToSpawn = 1;
         }
-        else if (t > 25 && t < 75)
+        else if (random > 25 && random < 75)
         {
             numberOfMineralsToSpawn = 2;
         }
@@ -271,12 +282,12 @@ public class ResourceGenerator : IDisposable
             {
                 CreateResources(_gameConfig.MineralT1[Random.Range(0, _gameConfig.MineralT1.Length)]);
             }
-            else if (random > 20 && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearTwoWeight*100)
+            else if (random > _gameConfig.TearOneWeight*100 && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearTwoWeight*100)
             {
                 CreateResources(_gameConfig.MineralT2[Random.Range(0, _gameConfig.MineralT2.Length)]);
             }
             else if (random > _gameConfig.TearOneWeight*100 + _gameConfig.TearTwoWeight*100 
-                     && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearThirdWeight*100)
+                     && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearThirdWeight*100 + _gameConfig.TearTwoWeight*100)
             {
                 CreateResources(_gameConfig.MineralT3[0]);
             }

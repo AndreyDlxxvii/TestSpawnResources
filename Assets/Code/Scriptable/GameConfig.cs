@@ -28,7 +28,7 @@ public class GameConfig : ScriptableObject
     
     [SerializeField] private bool _changeVariant;
     
-    [TextArea(3, 5)] [SerializeField] private string q =
+    [TextArea(3, 5)] [SerializeField] private string _annotation =
         "Если включено, то вариант Николая и сумма весов должна равняться 1, если выключено, то вариант Иоанна, " +
         " 1 - сумма всех весов = вероятности спавна пустоты";
 
