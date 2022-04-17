@@ -11,6 +11,7 @@ public class ResourceGenerator : IDisposable
     private GameConfig _gameConfig;
     private Mineral _mineral;
     private GeneratorLevelController _generatorLevelController;
+    private int _numOfVariant = 0;
     public ResourceGenerator(BaseBuildAndResources[,] installedBuildings,
         GameConfig gameConfig, GeneratorLevelController generatorLevelController)
     {
@@ -19,6 +20,18 @@ public class ResourceGenerator : IDisposable
         _generatorLevelController = generatorLevelController;
         _generatorLevelController.SpawnResources += SpawnResources;
     }
+    
+    public ResourceGenerator(BaseBuildAndResources[,] installedBuildings,
+        GameConfig gameConfig, GeneratorLevelController generatorLevelController, int i)
+    {
+        _installedBuildings = installedBuildings;
+        _gameConfig = gameConfig;
+        _generatorLevelController = generatorLevelController;
+        _generatorLevelController.SpawnResources += SpawnResources;
+        _numOfVariant = i;
+    }
+    
+    
     
  
     private void SpawnResources(VoxelTile tile)
@@ -78,7 +91,16 @@ public class ResourceGenerator : IDisposable
                     (int) building.transform.position.z));
             }
         }
-        PlaceResources(numTile);
+
+        if (_numOfVariant == 0)
+        {
+            PlaceResources(numTile);
+        }
+        else
+        {
+            PlaceResourcesSecondVariant(numTile);
+        }
+        
     }
 
     private void PlaceResources(int numTile)
@@ -101,8 +123,6 @@ public class ResourceGenerator : IDisposable
             numberOfMineralsToSpawn = 3;
         }
         
-        Debug.Log(numberOfMineralsToSpawn);
-        //int numberOfMineralsToSpawn = 2;
         float weightT1 = _gameConfig.TearOneWeight;
         float weightT2 = _gameConfig.TearTwoWeight * numTile;
         float weightT3 = _gameConfig.TearThirdWeight * Mathf.Pow(numTile, 1.5f);
@@ -239,6 +259,33 @@ public class ResourceGenerator : IDisposable
             }
             _possiblePlaceResource.Clear();
         }
+    }
+
+    private void PlaceResourcesSecondVariant(int numTile)
+    {
+        int n = _possiblePlaceResource.Count;
+        for (int i = 0; i < n; i++)
+        {
+            int random = Random.Range(0, 101);
+            if (random <= _gameConfig.TearOneWeight*100)
+            {
+                CreateResources(_gameConfig.MineralT1[Random.Range(0, _gameConfig.MineralT1.Length)]);
+            }
+            else if (random > 20 && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearTwoWeight*100)
+            {
+                CreateResources(_gameConfig.MineralT2[Random.Range(0, _gameConfig.MineralT2.Length)]);
+            }
+            else if (random > _gameConfig.TearOneWeight*100 + _gameConfig.TearTwoWeight*100 
+                     && random <= _gameConfig.TearOneWeight*100 + _gameConfig.TearThirdWeight*100)
+            {
+                CreateResources(_gameConfig.MineralT3[0]);
+            }
+            else
+            {
+                Debug.Log("Спавн ничего");
+            }
+        }
+        _possiblePlaceResource.Clear();
     }
 
     private void CreateResources(Mineral res)

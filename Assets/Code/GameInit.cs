@@ -13,7 +13,15 @@ public class GameInit
         var btnConroller = new BtnUIController(rightUI, gameConfig);
         var levelGenerator = new GeneratorLevelController(tiles, gameConfig, rightUI, btnConroller, canvas, navMeshSurface);
         var buildController = new BuildGenerator(gameConfig, leftUI, layerMask, outpostSpawner);
-        new ResourceGenerator(buildController.Buildings, gameConfig, levelGenerator);
+        if (gameConfig.ChangeVariant)
+        {
+            new ResourceGenerator(buildController.Buildings, gameConfig, levelGenerator);
+        }
+        else
+        {
+            new ResourceGenerator(buildController.Buildings, gameConfig, levelGenerator, 2);
+        }
+            
 
         controller.Add(btnConroller);
         controller.Add(levelGenerator);

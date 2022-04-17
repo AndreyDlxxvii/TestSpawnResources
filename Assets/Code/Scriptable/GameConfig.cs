@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,15 @@ public class GameConfig : ScriptableObject
     [SerializeField] private float _tearTwoWeight = 0.23f;
     [Range(0f, 1f)]
     [SerializeField] private float _tearThirdWeight = 0.02f;
+
+    
+    [SerializeField] private bool _changeVariant;
+    
+    [TextArea(3, 5)] [SerializeField] private string q =
+        "Если включено, то вариант Николая и сумма весов должна равняться 1, если выключено, то вариант Иоанна, " +
+        " 1 - сумма всех весов = вероятности спавна пустоты";
+
+    public bool ChangeVariant => _changeVariant;
 
     public float TearOneWeight => _tearOneWeight;
 
