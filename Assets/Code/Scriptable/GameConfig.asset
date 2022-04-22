@@ -15,28 +15,17 @@ MonoBehaviour:
   _mapSizeX: 400
   _mapSizeY: 400
   _tilePrefabs:
+  - {fileID: 2005405932157645919, guid: 48de6ae8042425a48833fd2dd558f6c8, type: 3}
   - {fileID: -6104903246962966021, guid: ee29be7304bc0dc499261176c0615f8e, type: 3}
   - {fileID: 5422724862020434414, guid: 3ab4f4b1ac8d769459501f42fe40ef79, type: 3}
   - {fileID: 2721923189129941066, guid: e3b1ee9e8283fec4f8bac985fa5bef5e, type: 3}
   - {fileID: 3199305888566885066, guid: 0814f5f2d4853ff4eb09835848737599, type: 3}
-  - {fileID: 2207685555743648068, guid: 27cd86a72d95ed842aebfe8be9103e23, type: 3}
-  - {fileID: -6135819058454172838, guid: 8c5f872f0957c03419aaa20dcfa83e9f, type: 3}
-  - {fileID: -6104903246962966021, guid: ee29be7304bc0dc499261176c0615f8e, type: 3}
-  - {fileID: 5422724862020434414, guid: 3ab4f4b1ac8d769459501f42fe40ef79, type: 3}
-  - {fileID: 2721923189129941066, guid: e3b1ee9e8283fec4f8bac985fa5bef5e, type: 3}
-  - {fileID: 3199305888566885066, guid: 0814f5f2d4853ff4eb09835848737599, type: 3}
-  - {fileID: 2207685555743648068, guid: 27cd86a72d95ed842aebfe8be9103e23, type: 3}
-  - {fileID: -6135819058454172838, guid: 8c5f872f0957c03419aaa20dcfa83e9f, type: 3}
-  - {fileID: -6104903246962966021, guid: ee29be7304bc0dc499261176c0615f8e, type: 3}
-  - {fileID: 5422724862020434414, guid: 3ab4f4b1ac8d769459501f42fe40ef79, type: 3}
-  - {fileID: 2721923189129941066, guid: e3b1ee9e8283fec4f8bac985fa5bef5e, type: 3}
-  - {fileID: 3199305888566885066, guid: 0814f5f2d4853ff4eb09835848737599, type: 3}
-  - {fileID: 2207685555743648068, guid: 27cd86a72d95ed842aebfe8be9103e23, type: 3}
-  - {fileID: -6135819058454172838, guid: 8c5f872f0957c03419aaa20dcfa83e9f, type: 3}
   - {fileID: 6941335300236840142, guid: 83b8c3d40a2879841a2e013763ff8a8a, type: 3}
   - {fileID: 880350099617488053, guid: 06d7e02786bf9114b91f5d9da0270dc5, type: 3}
   - {fileID: 6107794650344137409, guid: 74f847636c52c0f4c92704a0d1948623, type: 3}
   - {fileID: 6579931382245792856, guid: 5bfff929440313d4db5b0b7dc1eee4a7, type: 3}
+  - {fileID: 2207685555743648068, guid: 27cd86a72d95ed842aebfe8be9103e23, type: 3}
+  - {fileID: -6135819058454172838, guid: 8c5f872f0957c03419aaa20dcfa83e9f, type: 3}
   _mainTower: {fileID: 4437343820552527173, guid: f83ebf818c4168f42a870a67eb8e73b7, type: 3}
   _buildFirst: {fileID: 1173469307, guid: 17bebd10d20903d4e9afe753a32c4787, type: 3}
   _buildSecond: {fileID: 1173469307, guid: 83d904b6bf3982e4392967f84e8eb5f5, type: 3}
@@ -58,7 +47,7 @@ MonoBehaviour:
   _changeVariant: 0
   _tearOneWeightSecondVariant: 0.2
   _tearTwoWeightSecondVariant: 0.2
-  _tearThirdWeightSecondVariant: 0.1
+  _tearThirdWeightSecondVariant: 0.807
   _annotation: "\u0415\u0441\u043B\u0438 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u043E,
     \u0442\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \u041D\u0438\u043A\u043E\u043B\u0430\u044F
     \u0438 \u0441\u0443\u043C\u043C\u0430 \u0432\u0435\u0441\u043E\u0432 \u0434\u043E\u043B\u0436\u043D\u0430

@@ -256,11 +256,11 @@ public class ResourceGenerator : IDisposable
                             else if ((int)Math.Round(weightT2 / sumAllWeight / 2f * 100) >= 100 - randomChance &&
                                      (int)Math.Round(weightT3/sumAllWeight * 100) < 100 - randomChance)
                             {
-                                CreateResources(_gameConfig.MineralT2[Random.Range(0,_gameConfig.MineralT1.Length)]);
+                                CreateResources(_gameConfig.MineralT2[Random.Range(0,_gameConfig.MineralT2.Length)]);
                             }
                             else if ((int)Math.Round(weightT3/sumAllWeight * 100) >= randomChance)
                             {
-                                CreateResources(_gameConfig.MineralT3[Random.Range(0,_gameConfig.MineralT1.Length)]);
+                                CreateResources(_gameConfig.MineralT3[Random.Range(0,_gameConfig.MineralT3.Length)]);
                             }
                         }
                     }

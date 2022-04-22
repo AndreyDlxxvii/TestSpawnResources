@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -21,6 +22,8 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
     private NavMeshSurface _navMesh;
     private BtnUIController _btnUIController;
     private Dictionary<Button, Vector3> _spawnedButtons = new Dictionary<Button, Vector3>();
+    private int count = 0;
+    private VoxelTile prefab;
 
     public event Action<VoxelTile> SpawnResources; 
 
@@ -138,7 +141,34 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
     {
         var _availableTiles = Extensions.TilesCanBeSet(i, _voxelTiles);
         var pos = new Vector3(voxelTile.transform.position.x + spawnPos.x, 0 , voxelTile.transform.position.z + spawnPos.z);
-        var tile = GameObject.Instantiate(_availableTiles[Random.Range(0, _availableTiles.Count-1)], pos, Quaternion.identity);
+        byte[] test = {0, 1, 0, 1};
+        byte[] testSecond = {1, 0, 1, 0};
+        if (count < 2)
+        {
+            foreach (var tilePrefab in _availableTiles)
+            {
+                if (Enumerable.SequenceEqual(tilePrefab.TablePassAccess, test) | Enumerable.SequenceEqual(tilePrefab.TablePassAccess, testSecond))
+                {
+                    prefab = tilePrefab;
+                    
+                    break;
+                }
+                prefab = _availableTiles[Random.Range(0, _availableTiles.Count)];
+            }
+
+            count++;
+        }
+        else
+        {
+            prefab = _availableTiles[Random.Range(0, _availableTiles.Count)];
+            //возможность бесконечного цикла
+            while (Enumerable.SequenceEqual(prefab.TablePassAccess, test) | Enumerable.SequenceEqual(prefab.TablePassAccess, testSecond))
+            {
+                prefab = _availableTiles[Random.Range(0, _availableTiles.Count)];
+            }
+            count = 0;
+        }
+        var tile = GameObject.Instantiate(prefab, pos, Quaternion.identity);
         
         //расчет веса тайла для генерации ресурсов по Николаю
         tile.NumZone = voxelTile.NumZone + 1;
