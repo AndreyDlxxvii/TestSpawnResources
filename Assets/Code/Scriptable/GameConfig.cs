@@ -19,26 +19,38 @@ public class GameConfig : ScriptableObject
     [SerializeField] private Mineral [] _mineralT2;
     [SerializeField] private Mineral [] _mineralT3;
     [Range(0f, 1f)]
-    [SerializeField] private float _tearOneWeight = 0.75f;
+    [SerializeField] private float _tearOneWeightVariantNik = 0.75f;
     [Range(0f, 1f)]
-    [SerializeField] private float _tearTwoWeight = 0.23f;
+    [SerializeField] private float _tearTwoWeightVariantNik = 0.23f;
     [Range(0f, 1f)]
-    [SerializeField] private float _tearThirdWeight = 0.02f;
-
+    [SerializeField] private float _tearThirdWeightVariantNik = 0.02f;
     
     [SerializeField] private bool _changeVariant;
     
+    [Range(0f, 1f)]
+    [SerializeField] private float _tearOneWeightSecondVariant = 0.75f;
+    [Range(0f, 1f)]
+    [SerializeField] private float _tearTwoWeightSecondVariant = 0.23f;
+    [Range(0f, 1f)]
+    [SerializeField] private float _tearThirdWeightSecondVariant = 0.02f;
+    
     [TextArea(3, 5)] [SerializeField] private string _annotation =
-        "Если включено, то вариант Николая и сумма весов должна равняться 1, если выключено, то вариант Иоанна, " +
+        "Если вsключено, то вариант Николая и сумма весов должна равняться 1, если включено, то вариант Иоанна, " +
         " 1 - сумма всех весов = вероятности спавна пустоты";
+    
+    public float TearOneWeightSecondVariant => _tearOneWeightSecondVariant;
+
+    public float TearTwoWeightSecondVariant => _tearTwoWeightSecondVariant;
+
+    public float TearThirdWeightSecondVariant => _tearThirdWeightSecondVariant;
 
     public bool ChangeVariant => _changeVariant;
 
-    public float TearOneWeight => _tearOneWeight;
+    public float TearOneWeightVariantNik => _tearOneWeightVariantNik;
 
-    public float TearTwoWeight => _tearTwoWeight;
+    public float TearTwoWeightVariantNik => _tearTwoWeightVariantNik;
 
-    public float TearThirdWeight => _tearThirdWeight;
+    public float TearThirdWeightVariantNik => _tearThirdWeightVariantNik;
 
     public Mineral[] MineralT1 => _mineralT1;
 

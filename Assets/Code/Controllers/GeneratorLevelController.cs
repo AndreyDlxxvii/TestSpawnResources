@@ -81,6 +81,7 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
     
     private void CreateButton(VoxelTile tile)
     {
+        var tilePosition = tile.transform.position;
         int i = 0;
         foreach (var ell in tile.TablePassAccess)
         {
@@ -91,22 +92,22 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
                 case 1:
                     if (i == 0 && Extensions.CheckEmptyPosition(tile, 0, -_offsetInstanceTiles, _spawnedTiles))
                     {
-                        Vector3 posToSpawnBtn = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z - _offsetInstanceTiles);
+                        Vector3 posToSpawnBtn = new Vector3(tilePosition.x, tilePosition.y, tilePosition.z - _offsetInstanceTiles);
                         InstansButton(posToSpawnBtn, Vector3.back, tile, i);
                     }
                     else if (i == 1 && Extensions.CheckEmptyPosition(tile, -_offsetInstanceTiles, 0, _spawnedTiles))
                     {
-                        Vector3 posToSpawnBtn = new Vector3(tile.transform.position.x - _offsetInstanceTiles, tile.transform.position.y, tile.transform.position.z);
+                        Vector3 posToSpawnBtn = new Vector3(tilePosition.x - _offsetInstanceTiles, tilePosition.y, tilePosition.z);
                         InstansButton(posToSpawnBtn, Vector3.left, tile, i);
                     }
                     else if (i == 2 && Extensions.CheckEmptyPosition(tile, 0, _offsetInstanceTiles, _spawnedTiles))
                     {
-                        Vector3 posToSpawnBtn = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + _offsetInstanceTiles);
+                        Vector3 posToSpawnBtn = new Vector3(tilePosition.x, tilePosition.y, tilePosition.z + _offsetInstanceTiles);
                         InstansButton(posToSpawnBtn, Vector3.forward, tile, i);
                     }
                     else if (i == 3 && Extensions.CheckEmptyPosition(tile, _offsetInstanceTiles, 0, _spawnedTiles))
                     {
-                        Vector3 posToSpawnBtn = new Vector3(tile.transform.position.x + _offsetInstanceTiles, tile.transform.position.y, tile.transform.position.z);
+                        Vector3 posToSpawnBtn = new Vector3(tilePosition.x + _offsetInstanceTiles, tilePosition.y, tilePosition.z);
                         InstansButton(posToSpawnBtn, Vector3.right, tile, i);
                     } 
                     break;
@@ -139,6 +140,7 @@ public class GeneratorLevelController : IOnController, IOnStart, IOnLateUpdate
         var pos = new Vector3(voxelTile.transform.position.x + spawnPos.x, 0 , voxelTile.transform.position.z + spawnPos.z);
         var tile = GameObject.Instantiate(_availableTiles[Random.Range(0, _availableTiles.Count-1)], pos, Quaternion.identity);
         
+        //расчет веса тайла для генерации ресурсов по Николаю
         tile.NumZone = voxelTile.NumZone + 1;
         if (tile.NumZone==2)
         {
